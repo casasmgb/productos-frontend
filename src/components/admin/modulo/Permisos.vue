@@ -2,6 +2,7 @@
   <v-card class="crud-dialog">
     <v-card-title class="headline">
       <v-icon>security</v-icon> Permisos para {{ modulo.label }}
+      <v-spacer></v-spacer>
       <v-btn icon @click.native="$store.commit('closeModal', 2)">
         <v-icon>close</v-icon>
       </v-btn>

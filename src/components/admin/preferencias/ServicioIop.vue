@@ -8,6 +8,7 @@
           :url="url"
           :filters="filters"
           :graphql="graphql"
+          id-refresh="btn-refresh-iop"
         >
           <template slot="buttons">
             <v-tooltip bottom v-if="$store.state.permissions['serviciosIop:create']">
@@ -205,6 +206,7 @@ export default {
       url: 'serviciosIop',
       headers: [
         { text: this.$t('common.actions'), sortable: false },
+        { text: this.$t('common.active'), sortable: false },
         { text: this.$t('servicioIop.crud.codigo'), value: 'codigo' },
         { text: this.$t('servicioIop.crud.entidad'), value: 'entidad' },
         { text: this.$t('servicioIop.crud.metodo'), value: 'metodo' },
@@ -317,7 +319,7 @@ export default {
           }).then(response => {
             if (response) {
               this.$store.commit('closeModal');
-              this.updateList();
+              this.updateList('btn-refresh-iop');
               this.$message.success('Se actualizó el registro correctamente');
             }
           });
@@ -336,7 +338,7 @@ export default {
           }).then(response => {
             if (response) {
               this.$store.commit('closeModal');
-              this.updateList();
+              this.updateList('btn-refresh-iop');
               this.$message.success();
             }
           });

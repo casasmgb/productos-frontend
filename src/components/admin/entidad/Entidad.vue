@@ -532,13 +532,7 @@ export default {
       this.form.telefonos = [...this.form.telefonos];
     },
     descargarTodo () {
-      this.$service.post(`eapostilla/descargar_entidades_docs`)
-      .then(response => {
-        if (response) {
-          this.updateList();
-          this.$message.success(`La sincronización se realizó correctamente.`);
-        }
-      });
+      // TODO: Implementar función de sincronización con el portál único
     }
   },
   components: {

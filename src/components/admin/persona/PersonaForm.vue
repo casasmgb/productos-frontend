@@ -82,11 +82,11 @@
         >
           <v-radio
             label="Mujer"
-            value="M"
+            value="F"
           ></v-radio>
           <v-radio
-            label="Varón"
-            value="V"
+            label="Hombre"
+            value="M"
           ></v-radio>
         </v-radio-group>
       </v-flex>

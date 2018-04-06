@@ -179,7 +179,7 @@ export default {
           }).then(response => {
             if (response) {
               this.$store.commit('closeModal');
-              this.updateList();
+              this.updateList('btn-refresh-rol');
               this.$message.success('Se actualizó el registro correctamente');
             }
           });
@@ -198,7 +198,7 @@ export default {
           }).then(response => {
             if (response) {
               this.$store.commit('closeModal');
-              this.updateList();
+              this.updateList('btn-refresh-rol');
               this.$message.success();
             }
           });

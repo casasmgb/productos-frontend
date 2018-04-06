@@ -26,12 +26,14 @@ export default new Vuex.Store({
     modal: false,
     modal2: false,
     modal3: false,
+    action: null,
     alert: {
       show: false,
       text: '',
       callback: null
     },
     form: {},
+    clean: false,
     confirm: {
       show: false,
       text: '',
@@ -62,6 +64,12 @@ export default new Vuex.Store({
     },
     setForm (state, value) {
       state.form = value;
+    },
+    setAction (state, value) {
+      state.action = value;
+    },
+    cleanDate (state, value) {
+      state.clean = value;
     },
     openModal (state, id = '') {
       state[`modal${id}`] = true;

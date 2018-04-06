@@ -54,14 +54,14 @@ export default {
       });
     },
 
-    changeActive (obj, id, url, type, callback) {
+    changeActive (obj, id, url, type, callback, method = 'Edit') {
       let active = obj.active === 'ACTIVE';
       this.$confirm(`¿Está seguro de ${active ? 'activar' : 'desactivar'} el registro?.`, () => {
         if (this.graphql) {
           this.$service.graphql({
             query: `
               mutation edit($id: Int!, $${url}: ${type}!) {
-                ${url}Edit(id: $id, ${url}: $${url}) {
+                ${url}${method}(id: $id, ${url}: $${url}) {
                   id
                 }
               }
@@ -104,10 +104,10 @@ export default {
       }, () => (obj.active = active ? 'INACTIVE' : 'ACTIVE'));
     },
 
-    updateList (id = '#btn-refresh-list') {
-      if (document.querySelector(id)) {
-        console.log('Update list', document.querySelector(id));
-        document.querySelector(id).dispatchEvent(new window.Event('click'));
+    updateList (id = 'btn-refresh-list') {
+      if (document.getElementById(id)) {
+        console.log('Update list', document.getElementById(id));
+        document.getElementById(id).dispatchEvent(new window.Event('click'));
       }
     },
 

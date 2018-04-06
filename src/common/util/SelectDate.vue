@@ -10,6 +10,7 @@
         @keydown.native="$filter.numeric($event)"
         :rules="required ? $validate(['required']) : []"
         :required="required"
+        :disabled="disabled"
         ></v-text-field>
       </v-flex>
       <v-flex xs4>
@@ -20,6 +21,7 @@
         @keydown.native="$filter.numeric($event)"
         :rules="required ? $validate(['required']) : []"
         :required="required"
+        :disabled="disabled"
         ></v-text-field>
       </v-flex>
       <v-flex xs4>
@@ -30,6 +32,7 @@
         @keydown.native="$filter.numeric($event)"
         :rules="required ? $validate(['required']) : []"
         :required="required"
+        :disabled="disabled"
         ></v-text-field>
       </v-flex>
     </v-layout>
@@ -47,6 +50,10 @@ export default {
       default: ''
     },
     required: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -74,14 +81,15 @@ export default {
       if (this.form.year && this.form.year.length === 4 && this.form.month && this.form.day) {
         let date = new Date(this.form.year, this.form.month - 1, this.form.day);
         this.$store.commit('setDate', this.model.length ? { [this.model]: date } : date);
-        if (this.model.length) {
-          this.$store.commit(`${this.store}updateField`, { path: this.model, value: date });
-        }
+        this.setValue(date);
       } else {
         this.$store.commit('setDate', this.model.length ? { [this.model]: null } : null);
-        if (this.model.length) {
-          this.$store.commit(`${this.store}updateField`, { path: this.model, value: null });
-        }
+        this.setValue();
+      }
+    },
+    setValue (value = null) {
+      if (this.model.length) {
+        this.$store.commit(`${this.store}updateField`, { path: this.model, value });
       }
     }
   },
@@ -110,10 +118,24 @@ export default {
         this.setDate();
       }
     },
-    '$store.state.touch': function (val) {
-      if (!val) {
+    '$store.state.clean': function (val) {
+      if (val === this.model) {
+        this.form.year = '';
+        this.form.month = '';
+        this.form.day = '';
+        this.$store.commit('setDate', this.model.length ? { [this.model]: null } : null);
       }
-      this.$store.commit('setTouch', false);
+      this.$store.commit('cleanDate', false);
+    },
+    '$store.state.action': function (val) {
+      if (val.action === 'setDateValue') {
+        this.setValue(val.value);
+        console.log('date!', val.value, typeof val.value, new Date(val.value));
+        const { day, month, year } = this.$datetime.getDate(val.value);
+        this.form.day = day;
+        this.form.month = month;
+        this.form.year = year;
+      }
     }
   }
 };

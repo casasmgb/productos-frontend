@@ -25,6 +25,15 @@ export default {
         return new Date(date.getFullYear(), date.getMonth(), 1);
       },
 
+      getDate (date) {
+        date = new Date(date);
+        return {
+          day: date.getUTCDate(),
+          month: date.getUTCMonth() + 1,
+          year: date.getFullYear()
+        };
+      },
+
       getPrevDateMonth (data) {
         data = data || 1;
         let date = new Date();

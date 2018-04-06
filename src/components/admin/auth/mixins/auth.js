@@ -51,6 +51,9 @@ export default {
       this.$storage.remove('permissions');
 
       store.commit('setDefault');
+
+      // Debemos resetear todos los formularios que usamos con vuex-map-fields
+      store.commit('usuario/cleanForm');
       router.push('login');
     },
 

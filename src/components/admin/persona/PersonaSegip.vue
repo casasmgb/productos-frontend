@@ -10,6 +10,7 @@
           item-value="value"
           :rules="$validate(['required'])"
           required
+          :disabled="!!persona"
           ></v-select>
       </v-flex>
       <v-flex xs3>
@@ -20,6 +21,7 @@
           @keydown.native="$filter.numeric($event)"
           :rules="$validate(['required'])"
           required
+          :disabled="!!persona"
           ></v-text-field>
       </v-flex>
       <v-flex xs3>
@@ -27,12 +29,17 @@
           model="form.fecha_nacimiento"
           store="usuario/"
           :required="true"
+          :disabled="!!persona"
         >
         </select-date>
       </v-flex>
       <v-flex xs2>
         <v-btn
+          v-if="persona"
+          @click="cambiar"><v-icon>compare_arrows</v-icon> Cambiar</v-btn>
+        <v-btn
           color="info"
+          v-if="!persona"
           :disabled="$filter.empty(tipo_documento) || $filter.empty(nro_documento) || $filter.empty(fecha_nacimiento)"
           @click="buscarPersona"><v-icon>search</v-icon> Buscar</v-btn>
       </v-flex>
@@ -69,6 +76,7 @@ export default {
         'form.tipo_documento',
         'form.tipo_documentoOtro',
         'form.nro_documento',
+        'form.persona',
         'form.fecha_nacimiento'
       ], `${store}getField`, `${store}updateField`)
     };
@@ -83,10 +91,25 @@ export default {
             primer_apellido: persona.paterno,
             segundo_apellido: persona.materno,
             nombres: persona.nombres,
-            nacionalidad: persona.nacionalidad
+            nacionalidad: persona.nacionalidad,
+            persona: persona
           });
         }
       });
+    },
+    cambiar () {
+      this.$store.commit('usuario/setForm', {
+        primer_apellido: '',
+        segundo_apellido: '',
+        nombres: '',
+        nacionalidad: '',
+        tipo_documento: '',
+        tipo_documentoOtro: '',
+        nro_documento: '',
+        fecha_nacimiento: '',
+        persona: null
+      });
+      this.$store.commit('cleanDate', 'form.fecha_nacimiento');
     }
   },
   components: {

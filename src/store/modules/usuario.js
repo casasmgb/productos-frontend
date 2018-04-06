@@ -8,12 +8,12 @@ const form = {
   contrasena: '',
   email: '',
   cargo: '',
-  estado_usuario: '',
+  estado: '',
   id_entidad: '',
   id_rol: '',
   id_persona: '',
   tipo_documento: '',
-  tipo_documentoOtro: '',
+  tipo_documento_otro: '',
   nro_documento: '',
   fecha_nacimiento: '',
   nombres: '',
@@ -25,7 +25,8 @@ const form = {
   nacionalidad: '',
   pais_nacimiento: '',
   genero: '',
-  estado_persona: ''
+  estado_persona: '',
+  persona: null
 };
 
 const layout = {
